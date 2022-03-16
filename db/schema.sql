@@ -36,7 +36,8 @@ CREATE TABLE Employee(
 INSERT INTO  Department(dep_name) VALUES
 ("marketing"),("Engineer"),("Maintanance"),("finance");
 
-INSERT INTO Role(title,salary,dep_id) VALUES ("sales",1200,1),("SDE",3200,2),("Electric fixing",3000,3),("finance manager",3400,4);
+INSERT INTO Role(title,salary,dep_id) VALUES ("sales officer",1200,1),("SDE",3200,2),("Electric fixing",3000,3),("finance manager",3400,4),
+("sales leader",1500,1),("Civil Engineer",3000,2),("Gardens Maintanance officer",2300,3),("finance officer",2800,4);
 
 INSERT INTO Employee (f_name,l_name,manager_id,role_id) VALUES("maria","noq",1,2),
-("ahmed","noah",1,1),("reham","moh",1,4),("jacob","opert",1,3);
+("ahmed","noah",1,1),("reham","moh",1,4),("jacob","opert",1,3),('str','yonis',2,6);
