@@ -62,6 +62,14 @@ const UserChoices = () => {
             AddRole();
             break;
 
+            case('Add Employee'):
+            AddEmployee();
+            break;
+
+            case('EXIT'):
+            EXIT();
+            break;
+
 
 
 
@@ -187,11 +195,21 @@ const AddRole=()=>{
     })
   });
 
+}
+
+const AddEmployee=()=>{
   
-   
-  
+}
 
 
+
+
+
+
+
+const EXIT=()=>{
+  console.log('See you Again!!');
+process.exit()
 
 }
 
