@@ -4,7 +4,7 @@ A command line application is made to store data in a database for employees for
 javascript-mysql2-inquirer
 
 #workthrough Video on Google drive:
-
+https://drive.google.com/file/d/1wXT1g2-UQ6UXH-KHW6UTKaZOQkZYF0nn/view?usp=sharing
 # app work screenshots 
 
 <img width="1440" alt="Screen Shot 2022-03-17 at 2 16 48 PM" src="https://user-images.githubusercontent.com/95061565/158879637-86caf147-2cf7-40ab-871b-d5c09fc01575.png">
@@ -16,7 +16,7 @@ javascript-mysql2-inquirer
 <img width="1440" alt="Screen Shot 2022-03-17 at 2 19 40 PM" src="https://user-images.githubusercontent.com/95061565/158879675-4112e382-3a54-4bbb-b4d9-661e6f0bd824.png">
 
 
-## Your Task
+## Your Task 
 
 Developers frequently have to create interfaces that allow non-developers to easily view and interact with information stored in databases. These interfaces are called **content management systems (CMS)**. Your assignment this week is to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL.
 
