@@ -1,4 +1,20 @@
 # Employee-Tracker
+A command line application is made to store data in a database for employees for a company. The user is able to add/view departments, roles, employees and update employees role.
+# bulid this app using
+javascript-mysql2-inquirer
+
+#workthrough Video on Google drive:
+
+# app work screenshots 
+
+<img width="1440" alt="Screen Shot 2022-03-17 at 2 16 48 PM" src="https://user-images.githubusercontent.com/95061565/158879637-86caf147-2cf7-40ab-871b-d5c09fc01575.png">
+
+<img width="1440" alt="Screen Shot 2022-03-17 at 2 16 55 PM" src="https://user-images.githubusercontent.com/95061565/158879645-950d76ab-c1d0-4817-b8bc-bf73f52e4207.png">
+<img width="1440" alt="Screen Shot 2022-03-17 at 2 17 21 PM" src="https://user-images.githubusercontent.com/95061565/158879649-e8790edf-deca-4897-905f-075211ba8b7f.png">
+
+<img width="1440" alt="Screen Shot 2022-03-17 at 2 19 20 PM" src="https://user-images.githubusercontent.com/95061565/158879670-ceb75284-1002-46c6-9806-b3d6df72d290.png">
+<img width="1440" alt="Screen Shot 2022-03-17 at 2 19 40 PM" src="https://user-images.githubusercontent.com/95061565/158879675-4112e382-3a54-4bbb-b4d9-661e6f0bd824.png">
+
 
 ## Your Task
 
@@ -159,6 +175,9 @@ Fulfilling any of the following can add up to 20 points to your grade. Note that
 * Application allows users to delete departments, roles, and employees (2 points for each).
 
 * Application allows users to view the total utilized budget of a department&mdash;in other words, the combined salaries of all employees in that department (8 points).
+# contact me
+feel free to reach me at this email nameesmohammed12@gmail.com if you have any question
+
 
 ## Review
 
