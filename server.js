@@ -1,6 +1,8 @@
 const mysql = require('mysql2')
 const inquirer = require('inquirer');
 require("dotenv").config();
+const cTable = require('console.table');
+
 const DepArr = [];
 const roleArr = [];
 const ManagerArr = [];
@@ -34,7 +36,6 @@ const UserChoices = () => {
           'Add Department',
 
           'update Employee Role Information',
-          'Delete existing employee',
           'EXIT'
 
 
@@ -67,6 +68,12 @@ const UserChoices = () => {
         case ('Add Employee'):
           AddEmployee();
           break;
+
+          case('update Employee Role Information'):
+          UpdateEmployee();
+          break;
+
+
 
         case ('EXIT'):
           EXIT();
@@ -215,28 +222,166 @@ const AddRole = () => {
   });
 
 }
-//here i need to use values to f_name,l_name,manager_id,role_id(FK)
+//here i need to set values to f_name,l_name,manager_id,role_id(FK),manager id
+
 
 const AddEmployee = () => {
-  const getRoleTitle = `select title from Role`;
-  db.query(getRoleTitle, (err, result) => {
+  var f_name,l_name;
+
+
+  const getRoleTitle = `select title from Role;`
+  db.query(getRoleTitle, (err, data) => {
     if (err) {
       console.log(err)
-    }
-    for (var i = 0; i < result.length; i++) {
-      // console.log(result[i].title)
-      roleArr.push(result[i].title)
+    } else {
+      for (var i = 0; i < data.length; i++) {
+        roleArr.push(data[i].title);
 
+      }
+
+
+      const getManagerName = `select concat (f_name," ",l_name) as Employees from Employee;`
+
+      db.query(getManagerName, (err, data) => {
+        if (err) {
+          console.log(err)
+        } else {
+          for (var i = 0; i < data.length; i++) {
+            ManagerArr.push(data[i].Employees);
+
+          }
+
+
+
+          inquirer.prompt([{
+            message: 'Enter Employee First name:',
+            type: 'input',
+            name: 'f_name'
+          }, {
+            message: 'Enter Employee last name:',
+            type: 'input',
+            name: 'l_name'
+          }, {
+            message: 'choose which title Employee Belongs to?',
+            type: 'list',
+            name: 'title',
+            choices: roleArr
+
+
+          }, {
+            message: 'Managers name who is responsible for employee department?',
+            type: 'list',
+            name: 'manager',
+            choices: ManagerArr,
+            default:null
+          }]).then((result) => {
+            f_name=result.f_name;
+            l_name=result.l_name;
+            const getRoleId=`select id from Role where title=(?);`;
+            db.query(getRoleId,result.title,(err,data)=>{
+              // console.log(data)
+              const RoleID=data[0].id;
+              const splitmanagername=result.manager.split(" ");
+              const getManagerID=`select id from Employee where f_name=(?);`;
+              db.query(getManagerID,splitmanagername[0],(err,data)=>{
+                // console.log(data)
+
+                const managerID=data[0].id;
+
+                const FullEmployeeAdd=`INSERT INTO Employee (f_name,l_name,manager_id,role_id) VALUES(?,?,?,?);`;
+                ;
+
+                db.query(FullEmployeeAdd,[result.f_name,result.l_name,RoleID,managerID],(err,result)=>{
+                  console.log(`Congratulations!! your new Employee has been added successfully to company DB\n===============================================================
+                  Employee first name:${f_name}\n
+                  Employee last name:${l_name}\n
+                  Employee Role ID=${RoleID}\n
+                  Employee section Manager ID:${managerID}
+                  
+                  `)
+                  UserChoices()
+                });
+
+                
+              })
+
+            })
+
+
+          })
+        }
+      });
     }
-  })
-  const managerName = `select concat (manager.f_name," ",manager.l_name) as manager from Employee left join Employee manager on Employee.manager_id=manager.id; `;
-db.query(managerName,(err,managerResult)=>{
+  });
+}
+
+
+
+
+const UpdateEmployee=()=>{
+  const EmployeeNames=[];
+  const titleArr=[];
+
+const getEmployee=`select concat (f_name,' ',l_name) as EmployeeNames from Employee;`;
+db.query(getEmployee,(err,data)=>{
+  for(var i=0;i<data.length;i++){
+
+EmployeeNames.push(data[i].EmployeeNames);
+}
+
+const getTitle=`select title from Role;`;
+db.query(getTitle,(err,data)=>{
   if(err){
     console.log(err)
-  }
-  for(var i=0;i< managerResult.length;i++){
-    ManagerArr.push(managerResult[i].manager);
-    console.log(ManagerArr)
+  }else{
+    for(var i=0;i<data.length;i++){
+          titleArr.push(data[i].title)
+
+    }
+
+    inquirer.prompt([{
+      message:'Choose Employee name that you want to Update it:',
+      type:'list',
+      name:'Names',
+      choices:EmployeeNames
+    },{
+      message:'choose New Title:',
+      type:'list',
+      name:'title',
+      choices:titleArr
+    
+    }]).then((result)=>{
+      // { Names: 'ahmed noah', title: 'Electric fixing' }
+      const role_id=`select id from Role where title=(?);`;
+      db.query(role_id,result.title,(err,resultRole)=>{
+        const RID=resultRole[0].id;
+        const f_name=result.Names.split(" ");
+
+
+        const updatRole=`update Employee set role_id=(?) where f_name=(?);`;
+        db.query(updatRole,[RID,f_name[0]],(err,newdata)=>{
+          console.log('updated Successfullt ')
+          UserChoices()
+
+
+        })
+
+
+      })
+
+
+
+
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    })
   }
 })
 
@@ -245,51 +390,6 @@ db.query(managerName,(err,managerResult)=>{
 
 
 
-  inquirer.prompt([{
-    message: 'Enter Employee first name?',
-    name: 'f_name',
-    type: 'input'
-  }, {
-    message: 'Enter Employee last name?',
-    name: 'l_name',
-    type: 'input'
-  }, {
-    message: 'Enter Employee position?',
-    name: 'title',
-    type: 'list',
-    choices: roleArr
-  }, {
-    message: 'Enter Employees manger?',
-    name: 'manager',
-    type: 'list',
-    choices: ManagerArr
-  }
-  ]).then((result) => {
-
-    const getRoleId = `select id from Role where title=(?);`
-    db.query(getRoleId, result.title, (err, result) => {
-      if (err) {
-        console.log(err)
-      }
-      const roleid = result[0].id;
-      const addEmployee = `insert into Employee f_name,l_name,role_id,manager_id values(?,?,?,?);`
-      db.query(addEmployee, [result.f_name, result.l_name, roleid], (err, result) => {
-        if (err) {
-          console.log(err)
-        }
-        console.log(`Congrats!!! your new Employee has been added successfullt \n`);
-
-
-      })
-
-
-    })
-
-
-
-
-
-  })
 
 
 
@@ -298,11 +398,21 @@ db.query(managerName,(err,managerResult)=>{
 
 
 
+
+
+
+
+
+  
+})
+
+
+
+
+
+
+ 
 }
-
-
-
-
 
 
 
