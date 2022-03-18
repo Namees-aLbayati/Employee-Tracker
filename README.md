@@ -3,7 +3,7 @@ A command line application is made to store data in a database for employees for
 # bulid this app using
 javascript-mysql2-inquirer
 
-#workthrough Video on Google drive:
+# workthrough Video on Google drive:
 https://drive.google.com/file/d/1wXT1g2-UQ6UXH-KHW6UTKaZOQkZYF0nn/view?usp=sharing
 # app work screenshots 
 
