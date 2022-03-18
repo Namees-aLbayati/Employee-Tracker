@@ -6,7 +6,8 @@ const cTable = require('console.table');
 const DepArr = [];
 const roleArr = [];
 const ManagerArr = [];
-
+//connection DB
+//function to ask user about his choices 
 
 const db = mysql.createConnection(
   {
@@ -44,6 +45,7 @@ const UserChoices = () => {
 
     )
     .then((answer) => {
+      //swtich:case;break Conditional excutive
       switch (answer.UserInput1) {
         case ('Display Departments sections?'):
           selectDepartment();
@@ -222,7 +224,8 @@ const AddRole = () => {
   });
 
 }
-//here i need to set values to f_name,l_name,manager_id,role_id(FK),manager id
+//here i need to set values to f_name,l_name,manager_id,role_id(FK),manager id,so i will display the title that i will get it from Role table 
+// and display all the emplyee name to choose which one is the manager and connect the name with Id to get manager_id
 
 
 const AddEmployee = () => {
